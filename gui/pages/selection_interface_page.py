@@ -3,7 +3,7 @@ from gui.resources.resources_path import (ImagePaths, FontsPath)
 
 
 class SelectionInterface:
-    def __init__(self, page):
+    def __init__(self, page ):
         super().__init__()
         self.images = ImagePaths()
         self.fonts = FontsPath()
@@ -53,7 +53,7 @@ class SelectionInterface:
                 alignment='spaceEvenly',
                 vertical_alignment='center',
             ),
-            bgcolor="#fffffe",
+            bgcolor="#000000",
             padding=0,
             expand=True
         )
