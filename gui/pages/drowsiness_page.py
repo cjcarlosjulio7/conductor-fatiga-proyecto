@@ -28,8 +28,8 @@ class Drowsiness:
     def main(self):
 
         self.original_image_control = Image(
-            width=290,
-            height=340,
+            width=280,
+            height=300,
             fit=ImageFit.COVER,
             src_base64=self.get_placeholder_image()
         )
@@ -56,35 +56,37 @@ class Drowsiness:
             
         )
 
-        # Crear un contenedor de fila para el punto en la parte superior
-        top_row = Row(
-            controls=[self.camera_status_dot],  # Solo el punto rojo
-            alignment="center",  # Centrado horizontalmente
-            expand=True
-        )
 
         left_column = Column(
             controls=[   
-                top_row,  # Aquí añadimos la fila con el punto rojo
-                Container(height=30),
+                self.camera_status_dot, # Agregamos el contenedor del punto
+                Container(height=50),
                 self.original_image_control,
+                self.start_button,
+                self.stop_button,
             ],
             alignment='center',
             horizontal_alignment='center',
-            expand=True
+            height=520,  # Altura específica
+            width=300    # Ancho específico opcional
+            
+        )
+
+        left_column_container = Container(
+            content=left_column,  # Contenedor original
+            bgcolor="#000000",  # Fondo gris claro (puedes cambiarlo a cualquier color)
+            padding=10,
+            border_radius=12,
+
         )
 
         elements = Container(
             content=Row(
-                controls=[
-                    left_column,
-                    self.start_button,
-                    self.stop_button,
-                ],
+                controls=[left_column_container],
                 alignment='spaceEvenly',
                 vertical_alignment='center',
             ),
-            bgcolor="#000000",
+            bgcolor="#1c1c1c",
             padding=0,
             expand=True
         )
