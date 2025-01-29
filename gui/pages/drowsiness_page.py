@@ -28,8 +28,8 @@ class Drowsiness:
     def main(self):
 
         self.original_image_control = Image(
-            width=440,
-            height=280,
+            width=280,
+            height=300,
             fit=ImageFit.COVER,
             src_base64=self.get_placeholder_image()
         )
@@ -54,8 +54,17 @@ class Drowsiness:
             color='#FFFFFF',
         )
 
+        self.luz_roja = Container(
+            width=20,
+            height=20,
+            bgcolor="red",  # Color rojo
+            border_radius=10,
+            visible=False  # Inicialmente no visible  
+        )
+
         left_column = Column(
             controls=[
+                self.luz_roja, 
                 Container(height=30),
                 self.original_image_control,
                 self.start_button,
@@ -63,8 +72,9 @@ class Drowsiness:
             ],
             alignment='center',
             horizontal_alignment='center',
-            spacing=20,
-            expand=True
+            #spacing=20,
+            height=520,  # Altura específica
+            width=300    # Ancho específico opcional
         )
 
         #right_column = Column(
@@ -79,16 +89,24 @@ class Drowsiness:
         #    expand=True
         #)
 
+        
+        left_column_container = Container(
+            content=left_column,  # Contenedor original
+            bgcolor="#000000",  # Fondo gris claro (puedes cambiarlo a cualquier color)
+            border_radius=12,
+        )
+
         elements = Container(
             content=Row(
                 controls=[
-                    left_column,
+
+                    left_column_container,
                     #right_column
                 ],
                 alignment='spaceEvenly',
                 vertical_alignment='center',
             ),
-            bgcolor="#807da6",
+            bgcolor="#1c1c1c",
             padding=0,
             expand=True
         )
@@ -99,12 +117,14 @@ class Drowsiness:
             self.running = True
             self.video_thread = threading.Thread(target=self.run_detection, daemon=True)
             self.video_thread.start()
+            self.luz_roja.visible = True
+
 
     def stop_detection(self, e):
         self.running = False
         self.original_image_control.src_base64 = self.get_placeholder_image()
         #self.sketch_image_control.src_base64 = self.get_placeholder_image()
-        self.page.update()
+        self.luz_roja.visible = False
 
     def run_detection(self):
         uri = "ws://localhost:8000/ws"
