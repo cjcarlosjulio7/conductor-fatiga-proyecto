@@ -38,7 +38,6 @@ class MainApp:
             ),
         )
 
-        self.start_page = Start(page)
         self.selection_interface_page = SelectionInterface(page)
         self.drowsiness_page = Drowsiness(page)
 
@@ -51,12 +50,12 @@ class MainApp:
             self.page.views.append(
                 View(
                     route="/",
-                    controls=[self.start_page.main()],
+                    controls=[self.selection_interface_page.main()],
                 )
             )
 
         elif self.page.route == "/selection_interface_page":
-            self.selection_interface_page.main()
+            self.selection_interface_page.main() #se cambio la página de inicio 
             self.page.views.append(
                 View(
                     route="/selection_interface_page",

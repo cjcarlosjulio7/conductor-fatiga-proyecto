@@ -60,7 +60,7 @@ class Start:
                 alignment='spaceEvenly',
                 vertical_alignment='center',
             ),
-            bgcolor="#fffffe",
+            bgcolor="#000000",
             padding=0,
             expand=True
         )
