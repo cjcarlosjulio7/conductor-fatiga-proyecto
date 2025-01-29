@@ -28,15 +28,15 @@ class Drowsiness:
     def main(self):
 
         self.original_image_control = Image(
-            width=640,
-            height=480,
+            width=440,
+            height=280,
             fit=ImageFit.COVER,
             src_base64=self.get_placeholder_image()
         )
 
         self.sketch_image_control = Image(
-            width=640,
-            height=480,
+            width=440,
+            height=280,
             fit=ImageFit.COVER,
             src_base64=self.get_placeholder_image()
         )
@@ -107,7 +107,7 @@ class Drowsiness:
 
     def run_detection(self):
         uri = "ws://localhost:8000/ws"
-        cap = cv2.VideoCapture(1)
+        cap = cv2.VideoCapture(0)
         try:
             asyncio.run(self.process_video(uri, cap))
         finally:

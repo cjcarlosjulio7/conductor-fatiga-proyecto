@@ -11,8 +11,8 @@ class MainApp:
         self.page.bgcolor = "#fffffe"
         self.page.window.resizable = False
         self.page.padding = 0
-        self.page.window.width = 1920
-        self.page.window.height = 1080
+        self.page.window.width = 900
+        self.page.window.height = 720
         self.page.vertical_alignment = "center"
         self.page.horizontal_alignment = "center"
 
