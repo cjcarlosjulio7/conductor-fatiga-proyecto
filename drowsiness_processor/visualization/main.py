@@ -7,30 +7,22 @@ from typing import Tuple
 class ReportVisualizer:
     def __init__(self):
         self.coordinates = {
-            'eye_rub_first_hand': (10, 20),
-            'eye_rub_second_hand': (10, 100),
             'flicker': (10, 180),
             'micro_sleep': (10, 260),
             'pitch': (10, 340),
             'yawn': (10, 420),
         }
         self.visualize_reports = {
-            'eye_rub_first_hand': {'report': False, 'count': 0, 'durations': []},
-            'eye_rub_second_hand': {'report': False, 'count': 0, 'durations': []},
             'flicker': {'report': False, 'count': 0},
             'micro_sleep': {'report': False, 'count': 0, 'durations': []},
             'pitch': {'report': False, 'count': 0, 'durations': []},
             'yawn': {'report': False, 'count': 0, 'durations': []}
         }
         self.times = {
-            'eye_rub_first_hand': time.time(),
-            'eye_rub_second_hand': time.time(),
             'flicker': time.time(),
             'yawn': time.time()
         }
         self.warnings = {
-            'eye_rub_first_hand': 10,
-            'eye_rub_second_hand': 10,
             'micro_sleep': 1,
             'pitch': 1,
             'flicker': 20,
@@ -75,11 +67,6 @@ class ReportVisualizer:
             current_time = time.time()
             start_time_feature = self.times[feature]
             elapsed_time = round(current_time - start_time_feature, 0)
-
-            if feature == 'eye_rub_first_hand' or feature == 'eye_rub_second_hand':
-                self.draw_report_text(sketch,
-                                      f"counting: {feature.replace('_', ' ')}: {300 - elapsed_time} seconds remaining",
-                                      position, color)
 
             if feature == 'flicker':
                 self.draw_report_text(sketch,
@@ -160,20 +147,6 @@ class ReportVisualizer:
                 self.visualize_reports[feature]['durations'] = durations
 
     def visualize_all_reports(self, sketch: np.ndarray, report_data: dict):
-        # first hand
-        self.update_report('eye_rub_first_hand', report_data['eye_rub_first_hand'])
-        if self.visualize_reports['eye_rub_first_hand']['report']:
-            self.draw_warnings_report(sketch, 'eye_rub_first_hand')
-        else:
-            self.draw_warnings_general(sketch, 'eye_rub_first_hand')
-
-        # second hand
-        self.update_report('eye_rub_second_hand', report_data['eye_rub_second_hand'])
-        if self.visualize_reports['eye_rub_second_hand']['report']:
-            self.draw_warnings_report(sketch, 'eye_rub_second_hand')
-        else:
-            self.draw_warnings_general(sketch, 'eye_rub_second_hand')
-
         # flicker
         self.update_report('flicker', report_data['flicker_and_micro_sleep'])
         if self.visualize_reports['flicker']['report']:
