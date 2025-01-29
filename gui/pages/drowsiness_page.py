@@ -87,7 +87,7 @@ class Drowsiness:
                 alignment='spaceEvenly',
                 vertical_alignment='center',
             ),
-            bgcolor="#807da6",
+            bgcolor="#000000",
             padding=0,
             expand=True
         )
