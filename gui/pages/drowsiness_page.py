@@ -125,6 +125,7 @@ class Drowsiness:
         self.original_image_control.src_base64 = self.get_placeholder_image()
         #self.sketch_image_control.src_base64 = self.get_placeholder_image()
         self.luz_roja.visible = False
+        self.page.update()
 
     def run_detection(self):
         uri = "ws://localhost:8000/ws"
