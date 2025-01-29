@@ -34,12 +34,12 @@ class Drowsiness:
             src_base64=self.get_placeholder_image()
         )
 
-        self.sketch_image_control = Image(
-            width=440,
-            height=280,
-            fit=ImageFit.COVER,
-            src_base64=self.get_placeholder_image()
-        )
+        #self.sketch_image_control = Image(
+        #    width=440,
+        #    height=280,
+        #    fit=ImageFit.COVER,
+        #    src_base64=self.get_placeholder_image()
+        #)
 
         self.start_button = ElevatedButton(
             text="Start",
@@ -59,6 +59,7 @@ class Drowsiness:
                 Container(height=30),
                 self.original_image_control,
                 self.start_button,
+                self.stop_button, #agregado de la otra columna
             ],
             alignment='center',
             horizontal_alignment='center',
@@ -66,23 +67,23 @@ class Drowsiness:
             expand=True
         )
 
-        right_column = Column(
-            controls=[
-                Container(height=30),
-                self.sketch_image_control,
-                self.stop_button,
-            ],
-            alignment='center',
-            horizontal_alignment='center',
-            spacing=20,
-            expand=True
-        )
+        #right_column = Column(
+        #   controls=[
+        #        Container(height=30),
+        #        #self.sketch_image_control,
+        #        #self.stop_button,
+        #    ],
+        #    alignment='center',
+        #    horizontal_alignment='center',
+        #    spacing=20,
+        #    expand=True
+        #)
 
         elements = Container(
             content=Row(
                 controls=[
                     left_column,
-                    right_column
+                    #right_column
                 ],
                 alignment='spaceEvenly',
                 vertical_alignment='center',
@@ -102,7 +103,7 @@ class Drowsiness:
     def stop_detection(self, e):
         self.running = False
         self.original_image_control.src_base64 = self.get_placeholder_image()
-        self.sketch_image_control.src_base64 = self.get_placeholder_image()
+        #self.sketch_image_control.src_base64 = self.get_placeholder_image()
         self.page.update()
 
     def run_detection(self):
@@ -122,6 +123,8 @@ class Drowsiness:
     def cv2_to_base64(self, image):
         _, img_buffer = cv2.imencode(".jpg", image)
         return base64.b64encode(img_buffer).decode('utf-8')
+    
+    
 
     async def process_video(self, uri, cap):
         async with websockets.connect(uri) as websocket:
@@ -153,9 +156,14 @@ class Drowsiness:
                 nparr_original = np.frombuffer(original_data, np.uint8)
                 original_image = cv2.imdecode(nparr_original, cv2.IMREAD_COLOR)
 
+                
                 # update image in Flet
-                self.original_image_control.src_base64 = self.cv2_to_base64(original_image)
-                self.sketch_image_control.src_base64 = self.cv2_to_base64(sketch_image)
+                alpha = 0.4  # Ajusta la opacidad del sketch
+                overlay_image = cv2.addWeighted(original_image, 1 - alpha, sketch_image, alpha, 0)
+                self.original_image_control.src_base64 = self.cv2_to_base64(overlay_image)
+
+                #self.original_image_control.src_base64 = self.cv2_to_base64(original_image)
+                #self.original_image_control.src_base64 = self.cv2_to_base64(sketch_image)
 
                 # update UI
                 self.page.update()
