@@ -33,4 +33,19 @@ class DrowsinessDetectionSystem:
             sketch = self.visualizer.visualize_all_reports(sketch, drowsiness_features_processed)
             self.reports.main(drowsiness_features_processed)
             self.json_report = self.reports.generate_json_report(drowsiness_features_processed)
+            if drowsiness_features_processed.get("micro_sleep_report", False):
+                if not hasattr(self, "json_report") or not isinstance(self.json_report, dict):
+                    self.json_report = {}
+                self.json_report["alert_message"] = "Microsleep detected!"
+                self.json_report["alert_sound"] = "resources/sounds/microsleep.mp3"
+            elif drowsiness_features_processed.get("yawn_report", False):
+                if not hasattr(self, "json_report") or not isinstance(self.json_report, dict):
+                    self.json_report = {}
+                self.json_report["alert_message"] = "Yawn detected!"
+                self.json_report["alert_sound"] = "resources/sounds/yawn.mp3"
+            else:
+                if not hasattr(self, "json_report") or not isinstance(self.json_report, dict):
+                    self.json_report = {}
+                self.json_report["alert_message"] = ""
+                self.json_report["alert_sound"] = ""
         return face_image, sketch, self.json_report
