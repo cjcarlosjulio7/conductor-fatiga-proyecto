@@ -28,7 +28,7 @@ class Drowsiness:
     def main(self):
 
         self.original_image_control = Image(
-            width=280,
+            width=480,
             height=300,
             fit=ImageFit.COVER,
             src_base64=self.get_placeholder_image()
@@ -74,7 +74,7 @@ class Drowsiness:
             horizontal_alignment='center',
             #spacing=20,
             height=520,  # Altura específica
-            width=300    # Ancho específico opcional
+            width=600    # Ancho específico opcional
         )
 
         #right_column = Column(

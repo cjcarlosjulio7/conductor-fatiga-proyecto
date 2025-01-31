@@ -61,7 +61,7 @@ class ReportVisualizer:
     def draw_warnings_general(self, sketch: np.ndarray, feature: str):
         position = self.coordinates[feature]
         color = self.get_color('waiting')
-        if feature == 'micro_sleep' or feature == 'pitch':
+        if feature == 'micro_sleep' or feature == 'pitch': # micro sueño y cabeceo
             if feature == 'micro_sleep':
                 self.draw_report_text(sketch,
                                       f"evaluating: {feature.replace('_', ' ')}: stay alert",
@@ -164,41 +164,41 @@ class ReportVisualizer:
         self.update_report('eye_rub_first_hand', report_data['eye_rub_first_hand'])
         if self.visualize_reports['eye_rub_first_hand']['report']:
             self.draw_warnings_report(sketch, 'eye_rub_first_hand')
-        else:
-            self.draw_warnings_general(sketch, 'eye_rub_first_hand')
+        #else:
+        #    self.draw_warnings_general(sketch, 'eye_rub_first_hand')
 
         # second hand
         self.update_report('eye_rub_second_hand', report_data['eye_rub_second_hand'])
         if self.visualize_reports['eye_rub_second_hand']['report']:
             self.draw_warnings_report(sketch, 'eye_rub_second_hand')
-        else:
-            self.draw_warnings_general(sketch, 'eye_rub_second_hand')
+        #else:
+        #    self.draw_warnings_general(sketch, 'eye_rub_second_hand')
 
         # flicker
         self.update_report('flicker', report_data['flicker_and_micro_sleep'])
         if self.visualize_reports['flicker']['report']:
             self.draw_warnings_report(sketch, 'flicker')
-        else:
-            self.draw_warnings_general(sketch, 'flicker')
+        #else:
+        #    self.draw_warnings_general(sketch, 'flicker')
 
         # micro sleep
         self.update_report('micro_sleep', report_data['flicker_and_micro_sleep'])
         if self.visualize_reports['micro_sleep']['report']:
             self.draw_warnings_report(sketch, 'micro_sleep')
-        else:
-            self.draw_warnings_general(sketch, 'micro_sleep')
+        #else:
+        #    self.draw_warnings_general(sketch, 'micro_sleep')
 
         # pitch
         self.update_report('pitch', report_data['pitch'])
         if self.visualize_reports['pitch']['report']:
             self.draw_warnings_report(sketch, 'pitch')
-        else:
-            self.draw_warnings_general(sketch, 'pitch')
+        #else:
+        #    self.draw_warnings_general(sketch, 'pitch')
 
         # yawn
         self.update_report('yawn', report_data['yawn'])
         if self.visualize_reports['yawn']['report']:
-            self.draw_warnings_report(sketch, 'yawn')
-        else:
-            self.draw_warnings_general(sketch, 'yawn')
+           self.draw_warnings_report(sketch, 'yawn')
+        #else:
+        #    self.draw_warnings_general(sketch, 'yawn')
         return sketch
