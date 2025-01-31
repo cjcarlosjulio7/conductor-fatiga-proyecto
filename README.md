@@ -7,8 +7,6 @@ Este repositorio se basa en la realización de ingeniería inversa de sistema de
 - **Dockerizable:** Facilita la ejecución en servidores remotos.
 - **API robusta:** Utiliza FastAPI para ofrecer un backend modular y extensible.
 
-![YoloV8](https://github.com/user-attachments/assets/607fac48-6132-4b36-981b-530491ada198)
-
 ## Requisitos:
 - Sistema operativo: Windows, Linux o macOS
 - Versión de Python: 3.10 o superior
