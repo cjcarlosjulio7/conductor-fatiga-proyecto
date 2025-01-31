@@ -44,13 +44,13 @@ class Drowsiness:
         self.start_button = ElevatedButton(
             text="Start",
             on_click=self.start_detection,
-            bgcolor='#613bbb',
+            bgcolor='green',
             color='#FFFFFF',
         )
         self.stop_button = ElevatedButton(
             text="Stop",
             on_click=self.stop_detection,
-            bgcolor='#3f64c1',
+            bgcolor='red',
             color='#FFFFFF',
         )
 
@@ -118,6 +118,9 @@ class Drowsiness:
             self.video_thread = threading.Thread(target=self.run_detection, daemon=True)
             self.video_thread.start()
             self.luz_roja.visible = True
+            self.start_button.visible = False
+            self.stop_button.visible = True
+
 
 
     def stop_detection(self, e):
@@ -125,6 +128,7 @@ class Drowsiness:
         self.original_image_control.src_base64 = self.get_placeholder_image()
         #self.sketch_image_control.src_base64 = self.get_placeholder_image()
         self.luz_roja.visible = False
+        self.start_button.visible = True
         self.page.update()
 
     def run_detection(self):
